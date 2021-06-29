@@ -1,0 +1,265 @@
+# -*- coding: utf-8 -*-
+# -*- mode: org -*-
+# -*- org-export-babel-evaluate: nil -*-
+# -- org-startup-with-inline-images: nil --
+# -*- org-image-actual-width: nil; -*-
+#+TITLE: Roteiro de Aula - Estrutura de um programa em C
+#+AUTHOR: Bruno da Silva Alves
+#+EMAIL: bruno.alves@inf.ufrgs.br
+#+DATE: March, 2021
+#+STARTUP: overview indent noinlineimages
+#+LANGUAGE: pt-br
+#+OPTIONS: H:3 creator:nil timestamp:nil skip:nil toc:nil num:t ^:nil ~:~
+#+OPTIONS: author:nil title:nil date:nil
+#+TAGS: noexport(n) deprecated(d) ignore(i)
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+
+* Estrutura de um Programa em C
+
+*Slide 1:*
+
+- [Apresentar-se]
+- Nesta vídeo-aula será apresentada a estrutura básica de um programa em C
+- [Passar Slide]
+
+*Slide 2:*
+
+- Para começarmos a falar sobre a estrutura de programas é importante comentarmos 
+sobre a *Sequencialidade*. 
+- Nós podemos fazer uma analogia dessa sequencialidade dos programas com os passos necessários 
+para fazermos um café, por exemplo:
+  1. Esquentar a água.
+  2. Posicionar a térmica/xícara, coador, filtro.
+  3. Colocar o pó de café no filtro.
+  4. Despejar a água quente sobre o café.
+- Notem que *um passo ocorre após o outro*, em uma sequência. Notem também que ao esquecermos de
+detalhar algum passo, resultados inesperados podem acontecer.
+- [Passar Slide]
+
+*Slide 3*
+
+- Para entendermos melhor o funcionamento dos programas, é importante conhecer as partes 
+principais dessa caixa preta (até agora) conhecida como computador. 
+- Quando abrimos um computador e olhamos a placa-mãe, a parte mais importante é a CPU (Unidade
+Central de Processamento) onde situa-se grande parte da complexidade dos computadores. 
+- A CPU é responsável por realizar operações de aritmética e lógica e é onde ocorre grande parte
+do processamento realizado nos computadores. 
+- Então, dentro da CPU nós temos as unidades de aritmética e lógica e também a memória cache, 
+onde ficam os dados temporários que foram transferidos da memória principal através de um 
+barramento da placa mãe. 
+- Nós também temos a memória secundária que são os discos HDD ou SSD, que em geral são bem maiores
+do que a memória principal, mas em contrapartida são bem mais lentos do que a memória principal. 
+- Em termos de velocidade nós temos: cache, memória RAM, memória secundária.
+- Em termos de capacidade de armazenamento: cache -> Em torno de alguns MB, memória RAM -> alguns
+GB (8, 16, 32), memória principal -> TB. 
+- Temos também as unidades de entrada, como: mouse, teclado, joystick e 
+- Unidades de saída, como: impressoras, monitores, etc.
+- Portanto, os nossos programas:
+  1. São escritos na memória secundária
+  2. São compilados gerando arquivos binários também na memória secundária
+  3. O binário é trazido para a memória principal
+  4. Pedaços desse binário são levados para a cache
+  5. E por fim são executados pela CPU.
+
+(Parte opcional: Programação Paralela)
+
+- Notem que esse esquema considera um computador com somente uma CPU, mas em computadores 
+modernos e em celulares nós podemos ter mais de uma CPU e mais de um CORE.
+- O foco da nossa disciplina é escrever programas que irão executar em somente um CORE, mas 
+saibam que é possível escrever programas que se aproveitam dos vários processadores/COREs. 
+Esse tipo de programação é conhecida como *programação paralela*. 
+- Voltando ao nosso exemplo dos passos para fazer o café, imaginem agora que duas pessoas irão preparar o café. Então ao mesmo tempo (ou seja, em paralelo) que uma pessoa esquenta a água, a outra poderia posicionar a térmica, coador e filtro. As pessoas aqui representam as unidades de
+processamento disponíveis. 
+- Nesses termos, diversas questões interessantes podem surgir como depêndencia de dados (mais
+de uma pessoa tentando utilizar a chaleira), tarefas que dependem de outras, e por aí vai.
+- [Passar Slide]
+
+*Slide 4*
+
+- Dado esse contexto inicial, precisamos, portanto, realizar uma análise e definição do problema no qual 
+nos propusemos a resolver. 
+- Para tal, precisamos identificar o *objetivo*, as *entradas* e as nossas *saídas*.
+- Trazendo isso para o problema da soma de dois valores:
+  - O nosso objetivo é: informar a soma de 2 valores lidos
+  - As nossas entradas são: 2 valores *numéricos*. Aqui é importante detalhar a natureza desses valores, 
+pois poderiam ser valores de outros tipos como: nomes, endereços, etc, que poderiam gerar comportamentos não
+esperados. 
+  - E a nossa saída: É um valor numérico que representa a soma das entradas.
+- Depois de identificarmos esses 3 elementos do problema, nós podemos seguir para o Projeto do Algoritmo.
+- [Passar Slide]
+
+*Slide 5*
+
+- Então o primeiro passo no nosso projeto vai ser *identificar o algoritmo*, isso é feito aqui na forma 
+de um comentário (que são esses marcadores /* e */). É descrito o objetivo claro do algoritmo.
+- [Ler o comentário inicial do algoritmo]
+- Nessa identificação também são detalhadas as entradas e saídas esperadas.
+
+- São definidos também: o estado inicial bem claro (ali no passo 1 do nosso projeto) e o estado final 
+(passo 6).
+- Também são descritas as ações em uma sequência lógica e finita:
+- [Ler os passos 2 a 5 do projeto]
+- Vale ressaltar que ao fazer essa primeira versão do nosso projeto devemos nos perguntar se os comandos
+são claros e precisos. 
+- Efetuar a soma. Que soma? Com quais entradas?
+- Informar a soma. Informar como? Por email? Pela saída padrão? Por um arquivo?
+- [Passar Slide]
+
+*Slide 6*
+
+- Nessa segunda versão do nosso projeto, os comandos foram melhor detalhados: 
+- Agora nós vamos ler uma entrada1 (e1), ler uma entrada2 (e2)
+- As duas entradas serão somadas e atribuídas à entrada3 (e3)
+- Os passos agora ficaram mais claros e precisos, mas esses nomes não estão muito 
+significativos. Quando alguém se deparar com "entrada3" será que irá relacionar com a 
+ação de soma?
+- [Passar slide]
+
+*Slide 7*
+
+- Portanto, nessa versão final do projeto, nós vamos dar um melhor significado para os nomes definidos
+anteriormente. 
+- Então chamaremos "e1" e "e2" de "val1" e "val2", que são os *valores* inseridos para o cálculo da soma.
+- Vejam que podemos utilizar abreviações para os nomes, desde que sejam *significativas*. Exemplo: "val1" 
+remete a valor 1, agora "v1" poderia remeter a qualquer coisa que se inicia pela letra V. 
+- E também passamos a chamar a "e3" de "soma", já que ela recebe a soma dos dois valores.  
+- A próxima etapa, agora que estou satisfeito com o projeto, é a codificação do mesmo em alguma linguagem
+de programação.
+- [Passar Slide]
+ 
+*Slide 8* 
+
+- Assim, a linguagem de programação fornece um conjunto de convenções e regras para que consigamos 
+instruir o computador a executar tarefas. 
+- O compilador, então, que fica responsável por traduzir esse programa (descrito através da semântica e 
+sintexe definidas pela linguagem de programação) para a linguagem de máquina e depois para o binário que 
+será executado.
+- Para escrever esses programas, é comum utilizar aplicações chamadas de ambientes de programação.
+- [Passar Slide]
+
+*Slide 9* 
+
+- Esses ambientes de programação nos auxiliam a escrever programas em uma certa de linguagem. Eles nos
+proporcionam algumas facilidades como: editor de código, compilação através de um botão (integrado 
+ao compilador), verificação da sintaxe, entre outras.
+- O ambiente sugerido pelos professores para a disciplina é o CodeBlocks que tem suporte para vários 
+sistemas operacionais como Windows e Linux, mas existem muitos outros, como o Eclipse CDT, VSCode, etc.
+- O uso de um ambiente de programação não é obrigatório, uma vez que é possível programar com um editor 
+de texto simples como o NotePad++ e um compilador.
+- Ressalto que é importante nos atentarmos para as extensões dos arquivos onde será escrito o código. 
+Arquivos texto com código C devem possuir a extensão .c em minúsculo. 
+- [Passar Slide]
+
+*Slide 10*
+
+- [Apresentar o código]
+- [Passar Slide]
+
+*Slide 11*
+
+- [Retomar o problema da soma]
+- [Transição]
+- scanf → escaneamento de dados formatados
+- printf → impressão na tela de dados formatados
+
+*Slide 12*
+
+*Slide 13*
+
+- Portanto, nós vimos (brevemente) como as variáveis são declaradas, vimos que elas possuem um nome, 
+um tipo e um valor. Mas o que são elas?
+- Ao declarar uma variável, o compilador reserva um espaço na memória que será acessado através do 
+nome dado.
+- Formalmente: Variáveis são locais identificados onde dados são armazenados e recuperados, durante 
+a execução de um programa.
+- Intuitivamente, podemos imaginar variáveis como gavetas em um armário. As gavetas podem receber uma 
+etiqueta com o nome referente ao que tem dentro, o valor da soma, por exemplo. Cada gaveta armazena o 
+valor da variável. Cada variável pode ser acessada tanto pelo seu nome quanto pelo seu endereço na 
+memória. De forma análoga, poderíamos acessar uma gaveta baseado na sua etiqueta ou na sua posição no 
+armário.
+
+- [Executar o código com o PLIVET]
+
+#+begin_src C
+/*calcula a soma de 2 valores inteiros lidos do teclado */
+#include<stdio.h> // biblioteca com operações de entrada e saída
+
+int main( ){
+  
+  // declaração das variáveis
+  int val1; 
+  int val2; 
+  int soma; 
+  
+  // Atribui valores às variáveis
+  val1 = 10;
+  val2 = 30;
+
+  soma = val1 + val2; // armazena resultado em soma
+  printf("Resultado da soma: %d\n", soma); // e mostra na tela
+  
+  return 0; // encerra o programa de forma correta
+}
+#+end_src
+
+- Passo 1: Percebam que a val1 pertence a main, é uma variável do tipo int, com o nome val1, 
+que ocupa 4 bytes na memória, possui um valor 'aleatório' e está no endereço 0xC352.
+
+Na nossa analogia com as gavetas, val1 é a etiqueta da gaveta, o conteúdo é o valor aleatório e
+a posição (endereço) é 0xC352.
+ 
+#+CAPTION: Entendo variáveis: passo 1.
+#+NAME:   fig:PLIVET-step-1
+#+ATTR_HTML: :width 25% :height 25%
+[[./Prog_N2_A0_images/step_1.png]]
+
+- Passo 2: Percebam que a val2 pertence a main, é uma variável do tipo int, com o nome val2, 
+que ocupa 4 bytes na memória, possui um outro valor 'aleatório' e está no endereço 0xC356.
+
+#+CAPTION: Entendo variáveis: passo 2.
+#+NAME:   fig:PLIVET-step-2
+#+ATTR_HTML: :width 25% :height 25%
+[[./Prog_N2_A0_images/step_2.png]]
+
+- Passo 3: Percebam que a var soma pertence a main, é uma variável do tipo int, com o nome soma, 
+que ocupa 4 bytes na memória, possui um valor 'aleatório' e está no endereço 0xC35A.
+
+#+CAPTION: Entendo variáveis: passo 3.
+#+NAME:   fig:PLIVET-step-3
+#+ATTR_HTML: :width 25% :height 25%
+[[./Prog_N2_A0_images/step_3.png]]
+
+- Passo 4: O valor da variável val1 é atualizado com o número 10.
+
+#+CAPTION: Entendo variáveis: passo 4.
+#+NAME:   fig:PLIVET-step-4
+#+ATTR_HTML: :width 25% :height 25%
+[[./Prog_N2_A0_images/step_4.png]]
+
+- Passo 5: O valor da variável val2 é atualizado com o número 30.
+
+#+CAPTION: Entendo variáveis: passo 5.
+#+NAME:   fig:PLIVET-step-5
+#+ATTR_HTML: :width 25% :height 25%
+[[./Prog_N2_A0_images/step_5.png]]
+
+- Passo 6: O valor da variável soma é atualizado com o resultado da expressão aritmética.
+
+#+CAPTION: Entendo variáveis: passo 6.
+#+NAME:   fig:PLIVET-step-6
+#+ATTR_HTML: :width 25% :height 25%
+[[./Prog_N2_A0_images/step_6.png]]
+
+- Passo 7: Os valores são mostrados na saída com o comando printf.
+
+#+CAPTION: Entendo variáveis: passo 7.
+#+NAME:   fig:PLIVET-step-7
+#+ATTR_HTML: :width 25% :height 25%
+[[./Prog_N2_A0_images/step_7.png]]
+
+
+- As variáveis devem ser declaradas antes de serem utilizadas, uma vez que o compilador "conhece" as 
+variáveis de forma sequencial na leitura do programa. Geralmente, a declaração das variáveis é 
+o passo feito depois que a estrutura geral do programa foi definida. 
+- [Mostrar o erro gerado na compilação quando uma variável é utilizada antes de ser declarada]
