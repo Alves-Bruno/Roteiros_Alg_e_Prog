@@ -1,0 +1,207 @@
+# -*- coding: utf-8 -*-
+# -*- mode: org -*-
+# -*- org-export-babel-evaluate: nil -*-
+# -- org-startup-with-inline-images: nil --
+# -*- org-image-actual-width: nil; -*-
+#+TITLE: Roteiro de Aula - Estrutura de um programa em C
+#+AUTHOR: Bruno da Silva Alves
+#+EMAIL: bruno.alves@inf.ufrgs.br
+#+DATE: March, 2021
+#+STARTUP: overview indent noinlineimages
+#+LANGUAGE: pt-br
+#+OPTIONS: H:3 creator:nil timestamp:nil skip:nil toc:nil num:t ^:nil ~:~
+#+OPTIONS: author:nil title:nil date:nil
+#+TAGS: noexport(n) deprecated(d) ignore(i)
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+
+* Passagem por Referência e Ponteiros 
+
+** Slide 3
+
+- Apresentar código do exemplo de motivação.
+
+#+begin_src C
+#include <stdio.h>
+void troca (int x, int y) {
+  int temp = x;
+  x = y;
+  y = temp;
+  return;
+}
+
+int main() {
+  int a = 5;
+  int b = 10;
+  printf("#1: a = %d, b = %d\n", a, b);
+  troca(a, b);//chamada de função, passagem por valor (é feita uma cópia)
+  printf("#2: a = %d, b = %d\n", a, b);
+  return 0;
+}
+#+end_src
+
+- [Executar o código com o PLIVET]
+- [Enfatizar o momento da chamada da função troca e mostrar os 
+diferentes contextos de cada função, como mostrado na imagem abaixo.]
+
+- Percebam aqui que no momento em que a função troca é chamada, existem 
+dois contextos presentes na memória, um se refere as variáveis da função 
+main e o outro às variáveis da função troca. 
+
+#+CAPTION: Exemplo a26-troca: passo 1.
+#+NAME:   fig:a26-step-1
+#+ATTR_HTML: :width 25% :height 25%
+[[./Prog_N10_A0_images/a26-troca-step1.png]]
+
+- [Ressaltar também o momento logo antes do retorno da função]
+
+- Aqui podemos ver que o contexto da função *troca* mostra que as variáveis
+assumiram outros valores - uma da outra. 
+
+#+CAPTION: Exemplo a26-troca: passo 2.
+#+NAME:   fig:a26-step-2
+#+ATTR_HTML: :width 25% :height 25%
+[[./Prog_N10_A0_images/a26-troca-step2.png]]
+
+- [Mostrar que ao retornar à função main, o contexto retorna ao inicial]
+
+#+CAPTION: Exemplo a26-troca: passo 3.
+#+NAME:   fig:a26-step-3
+#+ATTR_HTML: :width 25% :height 25%
+[[./Prog_N10_A0_images/a26-troca-step3.png]]
+
+** Slide 11
+
+- [Apresentar o código de exemplo a26-ponteiro-conteudo] 
+
+#+begin_src C
+#include <stdio.h>
+int main() {
+  int alpha; // uma variável normal (tipo int)
+  int conta; // uma variável normal (tipo int)
+  int *var;// uma variável normal que é um ponteiro para int
+  var = &conta;// var recebe o endereço de count
+  conta = 26;
+  alpha = *var;// alpha recebe o conteúdo apontado por var
+  printf("Todos os valores em hexadecimal:\n");
+  printf("alpha (endereço %x) = %x \n", &alpha, alpha);
+  printf("conta (endereço %x) = %x \n", &conta, conta);
+  printf("var   (endereço %x) = %x, conteúdo apontado %x\n", &var, var, *var);
+  return 0;
+}
+#+end_src
+
+- [Executar com o PLIVET]
+- [Mostrar o momento logo após a execução da linha 5, onde é possível 
+ver o contexto da função main.]
+- Vejam aqui o estado da memória logo após a execução da linha 5. Podemos
+ver as variáveis alpha, conta e var. Notem que todas elas possuem um endereço
+e também um valor. O valor é apontado pela penúltima coluna e o endereço é 
+apontado pela última coluna. 
+
+#+CAPTION: Exemplo a26-ponteiro: passo 1.
+#+NAME:   fig:a26-ponteiro-step-1
+#+ATTR_HTML: :width 25% :height 25%
+[[./Prog_N10_A0_images/a26-ponteiro-step1.png]]
+
+- [Mostrar o momento logo após a execução da linha 6] 
+- Vejam aqui que o ponteiro var recebeu o valor do endereço da variável conta, 
+conforme mostra a setinha verde da imagem. Nesse momento, diz-se que *var*
+aponta para *conta*. 
+
+#+CAPTION: Exemplo a26-ponteiro: passo 2.
+#+NAME:   fig:a26-ponteiro-step-2
+#+ATTR_HTML: :width 25% :height 25%
+[[./Prog_N10_A0_images/a26-ponteiro-step2.png]]
+
+- [Mostrar o momento logo após a execução da linha 7]
+- Aqui, logo após a execução da linha 7, vejam que a variável conta armazena o 
+valor 26, mas notem que o endereço da mesma não foi alterado.
+
+#+CAPTION: Exemplo a26-ponteiro: passo 3.
+#+NAME:   fig:a26-ponteiro-step-3
+#+ATTR_HTML: :width 25% :height 25%
+[[./Prog_N10_A0_images/a26-ponteiro-step3.png]]
+
+- [Mostrar o momento logo após a execução da linha 8]
+- Nesse momento a variável alpha recebe o conteúdo apontado por var, ou seja, 
+ela recebe o valor 26. Notem que *var* aponta para *conta* e *conta* armazena 
+o valor 26. 
+
+#+CAPTION: Exemplo a26-ponteiro: passo 4.
+#+NAME:   fig:a26-ponteiro-step-4
+#+ATTR_HTML: :width 25% :height 25%
+[[./Prog_N10_A0_images/a26-ponteiro-step4.png]]  
+** Slide 12
+
+- [Apresentar o código de exemplo a26-atribuicao] 
+
+#+begin_src C
+#include <stdio.h>
+int main() {
+  int alpha = 200;// variável normal do tipo int
+  int *nova;// variável normal do tipo int que é um ponteiro
+  int *terra;// variável normal do tipo int que é um ponteiro
+  nova = &alpha;// o ponteiro nova aponta para o endereço de alpha
+  terra = nova;// o ponteiro terra também aponta para onde nova aponta
+  printf("Desvendar o endereço de onde encontra-se o ponteiro e seu valor\n");
+  printf("nova  (endereço %p): %p\n", &nova, nova);
+  printf("terra (endereço %p): %p\n", &terra, terra);
+  return 0;
+}
+#+end_src
+
+- [Mostrar a execução no PLIVET logo após a linha 8]
+
+- Percebam que as duas setas (verde e laranja) apontam para o 
+mesmo endereço de memória. Vale ressaltar que o valor armazenado
+pelo ponteiro é um endereço de memória. 
+
+#+CAPTION: Exemplo a26-atribuicao.
+#+NAME:   fig:a26-atribuicao
+#+ATTR_HTML: :width 25% :height 25%
+[[./Prog_N10_A0_images/a26-atribuicao.png]]
+
+** Slide 13
+
+- [Apresentar o código de exemplo a26-aritmetica] 
+
+#+begin_src C
+#include <stdio.h>
+int main() {
+  int *nova;// variável normal do tipo int que é um ponteiro
+  int *terra;// variável normal do tipo int que é um ponteiro
+  int *centauri;// variável normal do tipo int que é um ponteiro
+  int alpha = 200;// variável normal do tipo int
+  nova = &alpha;// o ponteiro nova aponta para o endereço de alpha
+  terra = nova;// o ponteiro terra também aponta para onde nova aponta
+  printf("nova     (endereço %p): %p\n", &nova, nova);
+  printf("terra    (endereço %p): %p\n", &terra, terra);
+  centauri = terra + 1;// incrementar em 1 o valor do ponteiro terra
+  printf("centauri (endereço %p): %p\n", &centauri, centauri);
+  return 0;
+}
+#+end_src
+
+- [Mostrar a execução no PLIVET logo após a linha 8]
+
+- Percebam que as duas setas apontam para o mesmo endereço de memória. 
+Ou seja, tanto *nova* quanto *terra* apontam para o mesmo endereço, o
+endereço ocupado por *alpha*.
+
+#+CAPTION: Exemplo a26-aritmetica.
+#+NAME:   fig:a26-aritmetica
+#+ATTR_HTML: :width 25% :height 25%
+[[./Prog_N10_A0_images/a26-aritmetica-step1.png]]
+
+
+- [Mostrar a execução no PLIVET ao final do programa]
+
+- Percebam que *nova* e *terra* ainda apontam para *alpha*. Mas o valor 
+de *centauri* aponta para o próximo endereço na memória depois do endereço
+de *alpha*.  
+
+#+CAPTION: Exemplo a26-aritmetica.
+#+NAME:   fig:a26-aritmetica
+#+ATTR_HTML: :width 25% :height 25%
+[[./Prog_N10_A0_images/a26-aritmetica-step2.png]]

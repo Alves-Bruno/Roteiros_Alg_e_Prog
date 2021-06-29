@@ -17,13 +17,13 @@
 
 * Estrutura de um Programa em C
 
-*Slide 1:*
+** Slide 1:
 
 - [Apresentar-se]
 - Nesta vídeo-aula será apresentada a estrutura básica de um programa em C
 - [Passar Slide]
 
-*Slide 2:*
+** Slide 2:
 
 - Para começarmos a falar sobre a estrutura de programas é importante comentarmos 
 sobre a *Sequencialidade*. 
@@ -37,7 +37,7 @@ para fazermos um café, por exemplo:
 detalhar algum passo, resultados inesperados podem acontecer.
 - [Passar Slide]
 
-*Slide 3*
+** Slide 3
 
 - Para entendermos melhor o funcionamento dos programas, é importante conhecer as partes 
 principais dessa caixa preta (até agora) conhecida como computador. 
@@ -75,7 +75,7 @@ processamento disponíveis.
 de uma pessoa tentando utilizar a chaleira), tarefas que dependem de outras, e por aí vai.
 - [Passar Slide]
 
-*Slide 4*
+** Slide 4
 
 - Dado esse contexto inicial, precisamos, portanto, realizar uma análise e definição do problema no qual 
 nos propusemos a resolver. 
@@ -89,7 +89,7 @@ esperados.
 - Depois de identificarmos esses 3 elementos do problema, nós podemos seguir para o Projeto do Algoritmo.
 - [Passar Slide]
 
-*Slide 5*
+** Slide 5
 
 - Então o primeiro passo no nosso projeto vai ser *identificar o algoritmo*, isso é feito aqui na forma 
 de um comentário (que são esses marcadores /* e */). É descrito o objetivo claro do algoritmo.
@@ -138,7 +138,7 @@ será executado.
 - Para escrever esses programas, é comum utilizar aplicações chamadas de ambientes de programação.
 - [Passar Slide]
 
-*Slide 9* 
+** Slide 9 
 
 - Esses ambientes de programação nos auxiliam a escrever programas em uma certa de linguagem. Eles nos
 proporcionam algumas facilidades como: editor de código, compilação através de um botão (integrado 
@@ -151,21 +151,20 @@ de texto simples como o NotePad++ e um compilador.
 Arquivos texto com código C devem possuir a extensão .c em minúsculo. 
 - [Passar Slide]
 
-*Slide 10*
+** Slide 10
 
 - [Apresentar o código]
 - [Passar Slide]
 
-*Slide 11*
+** Slide 11
 
 - [Retomar o problema da soma]
 - [Transição]
 - scanf → escaneamento de dados formatados
 - printf → impressão na tela de dados formatados
 
-*Slide 12*
-
-*Slide 13*
+** Slide 12
+** Slide 13
 
 - Portanto, nós vimos (brevemente) como as variáveis são declaradas, vimos que elas possuem um nome, 
 um tipo e um valor. Mas o que são elas?
