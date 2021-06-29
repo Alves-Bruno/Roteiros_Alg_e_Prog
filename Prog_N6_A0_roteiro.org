@@ -1,0 +1,61 @@
+# -*- coding: utf-8 -*-
+# -*- mode: org -*-
+# -*- org-export-babel-evaluate: nil -*-
+# -- org-startup-with-inline-images: nil --
+# -*- org-image-actual-width: nil; -*-
+#+TITLE: Roteiro de Aula - Estrutura de um programa em C
+#+AUTHOR: Bruno da Silva Alves
+#+EMAIL: bruno.alves@inf.ufrgs.br
+#+DATE: March, 2021
+#+STARTUP: overview indent noinlineimages
+#+LANGUAGE: pt-br
+#+OPTIONS: H:3 creator:nil timestamp:nil skip:nil toc:nil num:t ^:nil ~:~
+#+OPTIONS: author:nil title:nil date:nil
+#+TAGS: noexport(n) deprecated(d) ignore(i)
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+
+* Vetores e Strings
+
+** Slide 15
+
+- [Apresentar código abaixo].
+
+#+begin_src C
+#include <stdio.h>
+int main() {
+
+  int vetor_a[10] = {4, 7, 20, 31, 57, 21, 87, 12, 99, 34};
+  int vetor_b[10];
+
+  return 0;
+}
+#+end_src
+
+- [Executar o código com o PLIVET]
+- [Demonstrar o estado da memória depois da execução da linha 4]
+
+- Notem aqui como fica o estado da memória depois da execução da linha 4.
+Vejam que tamanho que esse arranjo ocupa na memória é igual ao tamanho (n
+elementos) dele vezes o espaço ocupado por cada inteiro, portanto 40 bytes.
+Atentem também para os valores já inicializados com os valores informados no
+código, na mesma ordem que foi escrito o programa. 
+
+- [Aqui pode-se fazer uma menção ao ponteiro que indica o primeiro elemento
+do arranjo.]
+
+#+CAPTION: Exemplo a15-init-arranjo: passo 1.
+#+NAME:   fig:a15-init-arranjo-step1
+#+ATTR_HTML: :width 25% :height 25%
+[[./Prog_N6_A0_images/a15-init-arranjo-step1.png]]
+
+- [Demonstrar o estado da memória depois da execução da linha 5]
+
+- Notem que nesse tipo de declaração o espaço de memória solicitado 
+é reservado mas não há garantia sobre os valores de inicialização. 
+Os mesmos assumem os valores que já estavam na memória (lixo).
+
+#+CAPTION: Exemplo a15-init-arranjo: passo 2.
+#+NAME:   fig:a15-init-arranjo-step2
+#+ATTR_HTML: :width 25% :height 25%
+[[./Prog_N6_A0_images/a15-init-arranjo-step2.png]]
