@@ -3,7 +3,7 @@
 # -*- org-export-babel-evaluate: nil -*-
 # -- org-startup-with-inline-images: nil --
 # -*- org-image-actual-width: nil; -*-
-#+TITLE: Roteiro de Aula - Estrutura de um programa em C
+#+TITLE: Roteiro de Aula - Vetores e Strings
 #+AUTHOR: Bruno da Silva Alves
 #+EMAIL: bruno.alves@inf.ufrgs.br
 #+DATE: March, 2021
